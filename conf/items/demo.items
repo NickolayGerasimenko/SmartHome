@@ -39,17 +39,7 @@ Switch Light_FF_Toilet_Ceiling      "Ceiling"    (FF_Toilet,   Lights)
 Switch Light_FF_Toilet_Mirror       "Mirror"     (FF_Toilet,   Lights)
                                                  
 
-
-Switch MCP23017ContactB0_VLED "FF_Corridor_Light0" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB1_VLED "FF_Corridor_Light1" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB2_VLED "FF_Corridor_Light2" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB3_VLED "FF_Corridor_Light3" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB4_VLED "FF_Corridor_Light4" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB5_VLED "FF_Corridor_Light5" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB6_VLED "FF_Corridor_Light6" (FF_Corridor,   v_gLights)
-Switch MCP23017ContactB7_VLED "FF_Corridor_Light7" (FF_Corridor,   v_gLights)
-
-
+                                                 
 // OLATA port address 0x14 -> 20 in Decimal, for some reason address 20 works for PORTA and PORTB
 Switch MCP23017ContactB0_LED "MCP_LED_A0" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A0', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
 Switch MCP23017ContactB1_LED "MCP_LED_A1" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A1', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }

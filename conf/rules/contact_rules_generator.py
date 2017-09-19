@@ -12,7 +12,19 @@ then
     }}
 end'''
 
+template2 = '''rule \"Contact state of LED{2} Changed\"
+when
+    Item {0} changed
+
+then
+    if({0}.state == OPEN) {{
+        {1}.sendCommand(ON)
+    }} else {{
+        {1}.sendCommand(OFF)
+    }}
+end'''
+
 for i in range(0,8):
-    f = open('MCP23017Contact_B{}.rules'.format(i), 'w')
-    str = template.format('Light_MCP23017Contact_B{}'.format(i),'MCP23017Contact_B{}_LED'.format(i),'MCP23017Contact_B{}'.format(i), i)
+    f = open('MCP23017ContactB{}.rules'.format(i), 'w')
+    str = template2.format('MCP23017ContactB{}'.format(i),'MCP23017ContactB{}_LED'.format(i), i)
     f.write(str)

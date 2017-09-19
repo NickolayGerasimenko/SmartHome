@@ -1,0 +1,11 @@
+rule "Contact state of LED2 Changed"
+when
+    Item MCP23017ContactB2 changed
+
+then
+    if(MCP23017ContactB2.state == OPEN) {
+        MCP23017ContactB2_LED.sendCommand(ON)
+    } else {
+        MCP23017ContactB2_LED.sendCommand(OFF)
+    }
+end

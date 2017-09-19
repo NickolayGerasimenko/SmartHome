@@ -1,10 +1,9 @@
 sitemap demo label="Main Menu"
 {
 	Frame {
-		Switch item=MCP23017ContactB0_VLED label="MCP23017 LED1" icon="lamp"
-        Switch item=MCP23017ContactB4_VLED label="MCP23017 LED5" icon="lamp"
-        Switch item=MCP23017ContactB0_LED label="MCP23017 LED0 Direct" 
-		Group item=gFF label="First Floor" icon="firstfloor"
+		Switch item=MCP23017ContactB0_LED label="MCP23017 LED1" icon="lamp"
+        Switch item=MCP23017ContactB4_LED label="MCP23017 LED5" icon="lamp"
+        Group item=gFF label="First Floor" icon="firstfloor"
 		Group item=gGF label="Ground Floor" icon="groundfloor"
 		Group item=gC label="Cellar" icon="cellar"
 		Group item=Garden icon="garden"
