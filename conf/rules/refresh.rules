@@ -1,0 +1,12 @@
+var boolean reloadOnce = true
+rule "Refresh rules after persistence service started"
+	when System started
+then
+	if(reloadOnce) {
+		executeCommandLine("/opt/openhab2/rules_refresh.sh")
+		logInfo("[RELOADONCE]", "Execute rules_refresh.sh")
+	} else {
+		logInfo("[RELOADONCE]", "reloadOnce is false")
+	}
+	reloadOnce = false
+end

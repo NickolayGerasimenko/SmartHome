@@ -1,0 +1,174 @@
+Group gFF           "First Floor"   <firstfloor>
+Group gSF           "Second Floor"  <secondfloor>
+Group gGF           "Ground Floor"  <groundfloor>
+Group gC            "Cellar"        <cellar>
+Group Garden        "Garden"        <garden>
+Group Weather       "Weather"       <sun>
+
+Group Status
+Group Shutters
+
+Group FF_Living     "Living Room"   <video>     (gFF)
+Group FF_Kitchen    "Kitchen"       <kitchen>   (gFF)
+Group FF_Toilet     "Toilet"        <bath>      (gFF)
+Group FF_Corridor   "Corridor"      <corridor>  (gFF)
+
+Group SF_Bath       "Bathroom"      <bath>      (gSF)
+Group SF_Office     "Office"        <office>    (gSF)
+Group SF_Child      "Child's Room"  <boy_1>     (gSF)
+Group SF_Bed        "Bedroom"       <bedroom>   (gSF)
+Group SF_Corridor   "Corridor"      <corridor>  (gSF)
+
+/* active groups */
+Group:Switch:OR(ON, OFF)        Lights       "All Lights [(%d)]"
+Group:Switch:OR(ON, OFF)        Heating      "No. of Active Heatings [(%d)]"     <heating>
+Group:Number:AVG                Temperature  "Avg. Room Temperature [%.1f °C]"   <temperature>   (Status)
+Group:Contact:OR(OPEN, CLOSED)  Windows      "Open windows [(%d)]"               <contact>
+
+Group:Switch:OR(OFF, ON)        gLights          "All Lights [(%d)]"
+Group:Switch:OR(OFF, ON)        v_gLights        "All Lights [(%d)]"
+Group:Contact:OR(OPEN, CLOSED)  gWallButtons     "Turn-on Light [(%d)]"              <contact>
+
+/* Lights */
+Dimmer Light_FF_Living_Table        "Table"      (FF_Living,   Lights)     ["Lighting"]
+Switch Light_FF_Corridor_Ceiling    "Ceiling"    (FF_Corridor, Lights)
+Switch Light_FF_Kitchen_Ceiling     "Ceiling"    (FF_Kitchen,  Lights)
+Switch Light_FF_Kitchen_Table       "Table"      (FF_Kitchen,  Lights)
+Switch Light_FF_Corridor_Wardrobe   "Wardrobe"   (FF_Corridor, Lights)
+Switch Light_FF_Toilet_Ceiling      "Ceiling"    (FF_Toilet,   Lights)
+Switch Light_FF_Toilet_Mirror       "Mirror"     (FF_Toilet,   Lights)
+                                                 
+
+
+Switch MCP23017ContactB0_VLED "FF_Corridor_Light0" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB1_VLED "FF_Corridor_Light1" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB2_VLED "FF_Corridor_Light2" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB3_VLED "FF_Corridor_Light3" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB4_VLED "FF_Corridor_Light4" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB5_VLED "FF_Corridor_Light5" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB6_VLED "FF_Corridor_Light6" (FF_Corridor,   v_gLights)
+Switch MCP23017ContactB7_VLED "FF_Corridor_Light7" (FF_Corridor,   v_gLights)
+
+
+// OLATA port address 0x14 -> 20 in Decimal, for some reason address 20 works for PORTA and PORTB
+Switch MCP23017ContactB0_LED "MCP_LED_A0" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A0', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB1_LED "MCP_LED_A1" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A1', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB2_LED "MCP_LED_A2" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A2', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB3_LED "MCP_LED_A3" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A3', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB4_LED "MCP_LED_A4" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A4', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB5_LED "MCP_LED_A5" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A5', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB6_LED "MCP_LED_A6" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A6', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP23017ContactB7_LED "MCP_LED_A7" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A7', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+
+Contact MCP23017ContactB0 "MCP23017 Contact B0" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B0', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB1 "MCP23017 Contact B1" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B1', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB2 "MCP23017 Contact B2" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B2', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB3 "MCP23017 Contact B3" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B3', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB4 "MCP23017 Contact B4" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B4', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB5 "MCP23017 Contact B5" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B5', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB6 "MCP23017 Contact B6" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B6', mode:'DIGITAL_INPUT'}" }
+Contact MCP23017ContactB7 "MCP23017 Contact B7" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B7', mode:'DIGITAL_INPUT'}" }
+
+Switch Light_SF_Bath_Ceiling        "Ceiling"    (SF_Bath, 	   Lights)
+Switch Light_SF_Bath_Mirror         "Mirror"     (SF_Bath,     Lights)
+Switch Light_SF_Corridor_Ceiling    "Corridor"   (SF_Corridor, Lights)
+Switch Light_SF_Office_Ceiling      "Ceiling"    (SF_Office,   Lights)
+Switch Light_SF_Child_Ceiling       "Ceiling"    (SF_Child,    Lights)
+Switch Light_SF_Bed_Ceiling         "Ceiling"    (SF_Bed, 	   Lights)
+                                                 
+Switch Light_C_Corridor_Ceiling     "Ceiling"    (gC, Lights)
+Switch Light_C_Staircase            "Staircase"  (gC, Lights)
+Switch Light_C_Washing_Ceiling      "Washing"    (gC, Lights)
+Switch Light_C_Workshop             "Workshop"   (gC, Lights)        ["Lighting"]
+                                                 
+Switch Light_Garden_Garage          "Garage"     (Garden, Lights)      ["Lighting"]
+Switch Light_Garden_Terrace         "Terrace"    (Garden, Lights)
+
+/* Heating */
+Switch Heating_GF_Corridor  "Corridor"      <heating>   (GF_Corridor, Heating)
+Switch Heating_GF_Toilet    "Toilet"        <heating>   (GF_Toilet, Heating)
+Switch Heating_GF_Living    "Livingroom"    <heating>   (GF_Living, Heating)
+Switch Heating_GF_Kitchen   "Kitchen"       <heating>   (GF_Kitchen, Heating)
+
+Switch Heating_FF_Bath      "Bath"          <heating>   (FF_Bath, Heating)
+Switch Heating_FF_Office    "Office"        <heating>   (FF_Office, Heating)
+Switch Heating_FF_Child     "Child's Room"  <heating>   (FF_Child, Heating)
+Switch Heating_FF_Bed       "Bedroom"       <heating>   (FF_Bed, Heating)
+
+
+/* Rollershutters */
+
+/*
+Rollershutter Shutter_GF_Toilet         "Toilet"        (GF_Toilet, Shutters)
+Rollershutter Shutter_GF_Kitchen        "Kitchen"       (GF_Kitchen, Shutters)
+Rollershutter Shutter_GF_Living         "Livingroom"    (GF_Living, Shutters)
+
+Rollershutter Shutter_FF_Bed            "Bedroom"       (FF_Bed, Shutters)
+Rollershutter Shutter_FF_Bath           "Bath"          (FF_Bath, Shutters)
+Rollershutter Shutter_FF_Office_Window  "Office Window" (FF_Office, Shutters)
+Rollershutter Shutter_FF_Office_Door    "Office Door"   (FF_Office, Shutters)
+*/
+
+Switch Shutter_all
+
+/* Indoor Temperatures */
+Number Temperature_GF_Corridor  "Temperature [%.1f °C]" <temperature>   (Temperature, GF_Corridor)
+Number Temperature_GF_Toilet    "Temperature [%.1f °C]" <temperature>   (Temperature, GF_Toilet)
+Number Temperature_GF_Living    "Temperature [%.1f °C]" <temperature>   (Temperature, GF_Living)
+Number Temperature_GF_Kitchen   "Temperature [%.1f °C]" <temperature>   (Temperature, GF_Kitchen, Thermostat) ["CurrentTemperature"]
+Number Temperature_FF_Bath      "Temperature [%.1f °C]" <temperature>   (Temperature, FF_Bath)
+Number Temperature_FF_Office    "Temperature [%.1f °C]" <temperature>   (Temperature, FF_Office)
+Number Temperature_FF_Child     "Temperature [%.1f °C]" <temperature>   (Temperature, FF_Child)
+Number Temperature_FF_Bed       "Temperature [%.1f °C]" <temperature>   (Temperature, FF_Bed)
+
+/* Windows */
+
+/*
+Contact Window_GF_Frontdoor     "Frontdoor [MAP(en.map):%s]"        (GF_Corridor, Windows)
+Contact Window_GF_Kitchen       "Kitchen [MAP(en.map):%s]"          (GF_Kitchen, Windows)
+Contact Window_GF_Living        "Terrace door [MAP(en.map):%s]"     (GF_Living, Windows)
+Contact Window_GF_Toilet        "Toilet [MAP(en.map):%s]"           (GF_Toilet, Windows)
+
+Contact Window_FF_Bath          "Bath [MAP(en.map):%s]"             (FF_Bath, Windows)
+Contact Window_FF_Bed           "Bedroom [MAP(en.map):%s]"          (FF_Bed, Windows)
+Contact Window_FF_Office_Window "Office Window [MAP(en.map):%s]"    (FF_Office, Windows)
+Contact Window_FF_Office_Door   "Balcony Door [MAP(en.map):%s]"     (FF_Office, Windows)
+*/
+
+Contact Garage_Door             "Garage Door [MAP(en.map):%s]"      (Garden, Windows)
+
+Group Weather_Chart
+Number Weather_Temperature      "Outside Temperature [%.1f °C]" <temperature> (Weather, Weather_Chart) { channel="yahooweather:weather:berlin:temperature" }
+Number Weather_Temp_Max         "Todays Maximum [%.1f °C]"      <temperature> (Weather, Weather_Chart)
+Number Weather_Temp_Min         "Todays Minimum [%.1f °C]"      <temperature> (Weather, Weather_Chart)
+Number Weather_Chart_Period     "Chart Period"
+DateTime Weather_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+Number Sun_Elevation            "Sun Elevation"                 <sun>       { channel = "astro:sun:home:position#elevation" }
+Number Sun_Azimuth              "Sun Azimuth"                   <sun>       { channel = "astro:sun:home:position#azimuth" }
+DateTime Sunrise_Time           "Sunrise [%1$tH:%1$tM]"         <sunrise>   { channel = "astro:sun:home:rise#start" }
+DateTime Sunset_Time            "Sunset [%1$tH:%1$tM]"          <sunset>    { channel = "astro:sun:home:set#start" }
+Number Moon_Elevation           "Moon Elevation"                <moon>      { channel = "astro:moon:home:position#elevation" }
+Number Moon_Azimuth             "Moon Azimuth"                  <moon>      { channel = "astro:moon:home:position#azimuth" }
+String Moon_Phase               "Moon Phase"                    <moon>      { channel = "astro:moon:home:phase#name" }
+
+/* Demo items */
+DateTime CurrentDate            "Date [%1$tA, %1$td.%1$tm.%1$tY]"   <calendar>  { channel="ntp:ntp:demo:dateTime" }
+Switch DemoSwitch               "Switch"
+Dimmer DimmedLight              "Dimmer [%d %%]"        <slider>
+Color  RGBLight                 "RGB Light"             <slider>
+Rollershutter DemoShutter       "Roller Shutter"
+Dimmer DemoBlinds               "Blinds [%d %%]"        <rollershutter>
+Number Scene_General            "Scene"                 <sofa>
+Number Radio_Station            "Radio"                 <network>
+Dimmer Volume                   "Volume [%.1f %%]"
+Location DemoLocation           "Brandenburg Gate Berlin"
+Number Wifi_Level               "Wifi Level [%d/4]"     <signal>        (FF_Office)
+String ImageURL                 "Image URL [%s]"
+
+Group Thermostat                "Thermostat"            <temperature>                    ["Thermostat"]
+Number Temperature_Setpoint     "Temperature [%.1f °C]" <temperature>    (Thermostat)    ["TargetTemperature"]
+String Thermostat_Mode          "Thermostat Mode [%s]"  <temperature>    (Thermostat)    ["homekit:HeatingCoolingMode"]
+
+
+
+// vim: syntax=Xtend

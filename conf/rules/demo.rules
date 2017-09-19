@@ -1,0 +1,228 @@
+import java.util.Random
+
+var Timer timer = null
+val resList = newArrayList("640/480", "320/240", "480/360")
+val urlList = newArrayList("http://www.fillmurray.com", "http://www.fillmurray.com/g",
+                 "http://www.placecage.com", "http://www.placecage.com/c", "http://www.placecage.com/g")
+val Random random = new Random()
+
+
+rule "Timer Demo"
+when
+    Item Light_GF_Corridor_Ceiling received command
+then
+    if(receivedCommand==ON) {
+        if(timer==null) {
+            // first ON command, so create a timer to turn the light off again
+            timer = createTimer(now.plusSeconds(10)) [|
+                sendCommand(Light_GF_Corridor_Ceiling, OFF)
+            ]
+        } else {
+            // subsequent ON command, so reschedule the existing timer
+            timer.reschedule(now.plusSeconds(10))
+        }
+    } else if(receivedCommand==OFF) {
+        // remove any previously scheduled timer
+        if(timer!=null) {
+            timer.cancel
+            timer = null
+        }
+    }
+end
+
+/**
+ * The following rules help initializing the demo items with some helpful states.
+ */
+
+
+rule "Initialize switch states"
+    when
+        System started
+    then
+        Thread::sleep(200)
+        v_gLights?.members.filter[vlamp| vlamp != NULL && vlamp.state != NULL].forEach(vlamp | 
+            if (vlamp != NULL)
+            {
+                logInfo("VLAMP", vlamp.name + " " + vlamp.state.toString)
+                val suffix = vlamp.name.substring(0,17)
+                val lamp = gLights?.members.filter[t | t != NULL && t.state != NULL && t.name == suffix+"_LED"].head as SwitchItem
+                    if(vlamp.state == ON) {
+                        sendCommand(lamp, OFF)
+                    } else {
+                        sendCommand(lamp, ON)
+                    }
+            }
+        )
+        
+        gWallButtons?.members.forEach(it|
+            if (it != NULL && it.state != NULL)
+            {
+                val vlamp = v_gLights?.members.filter[t | t != NULL && t.state != NULL && t.name == it.name+"_VLED"].head as SwitchItem
+                logInfo("VLAMP_STATE", vlamp.name + " " + vlamp.state.toString)
+                val contact = it as ContactItem
+                contact.postUpdate(vlamp.state.toString)
+            }
+        )
+end
+
+// rule "Initialize contact states"
+    // when
+        // System started
+    // then
+        
+        //gWallButtons?.members.forEach(wall_button|
+        //     wall_button.postUpdate(wall_button.state.toString)
+        //)
+        
+        // gWallButtons?.members.forEach[button | 
+            // light.sendCommand(button.historicState(now.minusSeconds(30)).state.toString)
+            //button.sendCommand(ON)
+       // ]
+//end
+
+// Creates an item that stores the last update time of this item
+rule "Records last weather update time"
+    when
+        Item Weather_Temperature received update
+    then
+        postUpdate(Weather_LastUpdate, new DateTimeType())
+end
+
+rule "Set random wifi variations"
+    when
+        System started or
+        Time cron "/20 * * * * ?"
+    then
+        postUpdate(Wifi_Level, (Math::random * 4.0).intValue)
+end
+
+rule "Set random image URLs"
+    when
+        Time cron "/10 * * * * ?"
+    then
+        val url = urlList.get(random.nextInt(urlList.length))
+        val res = resList.get(random.nextInt(resList.length))
+
+        postUpdate(ImageURL, url + "/" + res)
+end
+
+// rule "Switch Light LED0 State Update"
+    // when
+        // Item Light_MCP23017Contact_B0 received update
+
+    // then
+        // if(Light_MCP23017Contact_B0.state == ON) {
+            // MCP23017Contact_B0_LED.state = OFF
+            // MCP23017Contact_B0.postUpdate(OPEN)
+        // } else {
+            // MCP23017Contact_B0_LED.state = ON
+            // MCP23017Contact_B0.postUpdate(CLOSED)
+        // }
+// end
+
+
+rule "Virtual Light State Changed"
+    when
+        Item MCP23017ContactB0_VLED changed or
+        Item MCP23017ContactB1_VLED changed or
+        Item MCP23017ContactB2_VLED changed or
+        Item MCP23017ContactB3_VLED changed or
+        Item MCP23017ContactB4_VLED changed or
+        Item MCP23017ContactB5_VLED changed or
+        Item MCP23017ContactB6_VLED changed or
+        Item MCP23017ContactB7_VLED changed
+then
+    Thread::sleep(50) // give persistence time to catch up
+    
+    logInfo("Virtual Switch", MCP23017ContactB0_VLED.state.toString)
+
+    val vled = gLights.members.filter[s|s.lastUpdate("mapdb") != null].sortBy[lastUpdate("mapdb")].last as SwitchItem
+    val suffix = vled.name.substring(0,17)
+    logInfo("suffix", suffix)
+    val contact = gWallButtons.members.filter[t | t.name == suffix].head as ContactItem
+    val led = gLights.members.filter[t | t.name == suffix + "_LED"].head as SwitchItem
+    
+    if(vled.state == ON) {
+        logInfo("Virtual Switch", "TURN-ON")
+        sendCommand(led, OFF)
+        //contact.postUpdate(CLOSED)
+    } else {
+        logInfo("Virtual Switch", "TURN-OFF")
+        sendCommand(led, ON)
+        //contact.postUpdate(OPEN)
+    }
+end
+
+// rule "Switch LED0 State Update"
+    // when
+        // Item MCP23017Contact_B0_LED received update
+
+    // then
+        // logInfo("SwitchLED0", MCP23017Contact_B0_LED.state.toString)
+        // val button = gWallButtons?.members.filter[t | t != NULL && t.state != NULL && t.name == "MCP23017Contact_B0"].head as ContactItem
+        // if(button != NULL) {
+            // if(MCP23017Contact_B0_LED.state == ON) button.postUpdate(OPEN) else button.postUpdate(CLOSED)
+        // }
+// end
+
+        
+// rule "Switch LED4 State Update"
+    // when
+        // Item MCP23017ContactB4_LED received update
+    // then
+        // logInfo("SwitchLED4", MCP23017ContactB4_LED.state.toString)
+// end
+
+        
+rule "Wall Button State Changed"
+    when
+        Item MCP23017ContactB0 changed or
+        Item MCP23017ContactB1 changed or
+        Item MCP23017ContactB2 changed or
+        Item MCP23017ContactB3 changed or
+        Item MCP23017ContactB4 changed or
+        Item MCP23017ContactB5 changed or
+        Item MCP23017ContactB6 changed or
+        Item MCP23017ContactB7 changed
+then
+    Thread::sleep(50) // give persistence time to catch up
+
+
+    
+    // Acquire the door that triggered the rule by:
+    // - use filter remove the Contacts that are not saved to persitence yet (i.e. lastUpdate returns null)
+    // - use sortBy to order the members by lastUpdate, the most recent will be last
+    // - get the last updated Item, Contacts are unlikely to change within 100 msec of each other so this approach works
+    //   If they are likely to change that close together this approach will fail
+    val wall_switch = gWallButtons.members.filter[s|s.lastUpdate("mapdb") != null].sortBy[lastUpdate("mapdb")].last as ContactItem
+
+    // Alert
+    val StringBuilder msg = new StringBuilder
+    msg.append(wall_switch.name)  // note a map and transform can convert from Item name to human friendly words
+    logInfo("wall_switch.namee", wall_switch.name.toString)
+    
+    // set lamp
+    // Acquire the Lamp (see Associated Items):
+    // - use filter to get a Set containing only the Item whose name is the door.name with "_LED" appended
+    // - use head to get the first (and only) Item in the Set
+    //val lamp = gLights.members.filter[t | t!= null | t.name == wall_switch.name + "_LED"].head as SwitchItem
+    val vlamp = v_gLights.members.filter[t | t != null && t.name == wall_switch.name+"_VLED"].head as SwitchItem
+    // active light level is LOW for BENTLEY relay
+    logInfo("vlamp.state", vlamp.state.toString)
+    if (wall_switch.state == OPEN && vlamp.state == OFF) {
+        //if(vlamp.state == NULL || vlamp.state == ON) 
+        {
+           vlamp.postUpdate(ON)
+            msg.append(" was opened")
+        }
+    }
+    else {
+        if(wall_switch.state == CLOSED &&  vlamp.state == ON) {
+            vlamp.postUpdate(OFF)
+            msg.append(" was closed")
+        }
+    }
+    
+end
+
+// vim: syntax=Xtend
