@@ -39,6 +39,16 @@ Switch Light_FF_Toilet_Ceiling      "Ceiling"    (FF_Toilet,   Lights)
 Switch Light_FF_Toilet_Mirror       "Mirror"     (FF_Toilet,   Lights)
                                                  
 
+Switch MCP23017VirtualSwitchB0 "HALL Light 0" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB1 "HALL Light 1" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB2 "HALL Light 2" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB3 "HALL Light 3" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB4 "HALL Light 4" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB5 "HALL Light 5" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB6 "HALL Light 6" (FF_Corridor, gLights)
+Switch MCP23017VirtualSwitchB7 "HALL Light 7" (FF_Corridor, gLights)
+
+                                                 
                                                  
 // OLATA port address 0x14 -> 20 in Decimal, for some reason address 20 works for PORTA and PORTB
 Switch MCP23017ContactB0_LED "MCP_LED_A0" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A0', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }

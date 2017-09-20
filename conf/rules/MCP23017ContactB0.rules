@@ -1,11 +1,19 @@
+rule "Switch state of LED0 Changed"
+when
+    Item MCP23017VirtualSwitchB0 received update
+then
+    if(MCP23017VirtualSwitchB0.state == ON)
+        MCP23017ContactB0_LED.sendCommand(OFF)
+    else
+        MCP23017ContactB0_LED.sendCommand(ON)
+end
+ 
 rule "Contact state of LED0 Changed"
 when
     Item MCP23017ContactB0 changed
-
 then
-    if(MCP23017ContactB0.state == OPEN) {
-        MCP23017ContactB0_LED.sendCommand(ON)
-    } else {
-        MCP23017ContactB0_LED.sendCommand(OFF)
-    }
+    if(MCP23017ContactB0_LED.state == ON)
+        MCP23017VirtualSwitchB0.postUpdate(ON)
+    else
+        MCP23017VirtualSwitchB0.postUpdate(OFF)
 end

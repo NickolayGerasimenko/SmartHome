@@ -1,11 +1,19 @@
+rule "Switch state of LED5 Changed"
+when
+    Item MCP23017VirtualSwitchB5 received update
+then
+    if(MCP23017VirtualSwitchB5.state == ON)
+        MCP23017ContactB5_LED.sendCommand(OFF)
+    else
+        MCP23017ContactB5_LED.sendCommand(ON)
+end
+ 
 rule "Contact state of LED5 Changed"
 when
     Item MCP23017ContactB5 changed
-
 then
-    if(MCP23017ContactB5.state == OPEN) {
-        MCP23017ContactB5_LED.sendCommand(ON)
-    } else {
-        MCP23017ContactB5_LED.sendCommand(OFF)
-    }
+    if(MCP23017ContactB5_LED.state == ON)
+        MCP23017VirtualSwitchB5.postUpdate(ON)
+    else
+        MCP23017VirtualSwitchB5.postUpdate(OFF)
 end
