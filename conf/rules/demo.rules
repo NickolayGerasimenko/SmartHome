@@ -36,10 +36,18 @@ end
 
 
 rule "Initialize switch states"
-    when
-        System started
-    then
-        logInfo("Initialize switch states", MCP23017ContactB0_LED.state.toString)
+when
+    System started
+then
+    logInfo("System started", "Initialize switch states")
+    gLights?.members.filter[item | item != NULL && item.state != NULL].forEach[ item | sendCommand( item, item.state) ]
+end
+
+rule "Switch state of Light_ALL_Turn_ON_OFF Changed"
+when
+    Item Light_ALL_Turn_OFF received update
+then
+        v_gLights.members.forEach[ item | postUpdate( item, OFF) ]
 end
 
 // rule "Initialize contact states"
@@ -64,6 +72,15 @@ rule "Records last weather update time"
     then
         postUpdate(Weather_LastUpdate, new DateTimeType())
 end
+
+
+rule CorrectPressure
+when
+  Item Pressure changed
+then
+  Pressure_mmHg.postUpdate((Pressure.state as DecimalType) * 0.75)
+end
+
 
 rule "Set random wifi variations"
     when

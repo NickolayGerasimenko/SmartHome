@@ -1,0 +1,52 @@
+//openHAB Project GPIOLED by Robert W.B. Linn - www.rwblinn.de
+//https://github.com/openhab/openhab/wiki/Rules
+//Changed: 20160315
+
+import org.openhab.core.library.types.*
+import java.util.Date
+import java.text.SimpleDateFormat
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+
+
+//Switch counter. Define as var Number Counter and not as var Counter
+
+var Number SMS_State = 0
+
+var String test_arg   = "https://api.lifx.com:443/v1beta1"
+
+rule "SMS Protocol"
+when 
+	Item GPRS_Shield received update
+then
+
+	var String data = GPRS_Shield.state.toString
+	logInfo("[SERIAL GPRS]", data)
+	
+	//logInfo("[SERIAL GPRS]", data.split(","))
+	//var String[] data_lines = data.split(",")
+	//logInfo("[SERIAL GPRS]", data_lines)
+	
+	//data_lines.forEach[ d | logInfo("[SERIAL GPRS]", d)]
+	//for (String d : data_lines) {
+		//logInfo("[SERIAL GPRS]", d)		
+	//}
+	
+	var String regex = "CMGR.*\\s*(.*)\\s*OK"
+	var Pattern pattern = Pattern::compile(regex, Pattern::MULTILINE)
+	var Matcher m = pattern.matcher(data)
+	if(m.find()) {
+		logInfo("[GPRS5]", m.groupCount() + " " + m.group(1))
+	}
+	
+	//while(m.find()) {
+	//	logInfo("[GPRS5]: ", text.substring(m.start(), m.end()))
+    //}
+	//logInfo("[GPRS6] substring2: ", data.substring(m.start(0), m.end(0)))
+	
+	//if (SMS_State == 0) {
+	//	SMS_State = 1
+	//	GPRS_Shield.sendCommand("OpenHAB\r\r")
+	//	GPRS_Shield.sendCommand("\u001A\r\r")
+	//}
+end

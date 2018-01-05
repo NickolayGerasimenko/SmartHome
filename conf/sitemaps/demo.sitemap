@@ -1,12 +1,29 @@
 sitemap demo label="Main Menu"
 {
 	Frame {
-		Switch item=MCP23017ContactB0_LED label="MCP23017 LED1" icon="lamp"
-        Switch item=MCP23017ContactB4_LED label="MCP23017 LED5" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B0 label="I/O Board(0x20) PIN0" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B1 label="I/O Board(0x20) PIN1" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B2 label="I/O Board(0x20) PIN2" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B3 label="I/O Board(0x20) PIN3" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B4 label="I/O Board(0x20) PIN4" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B5 label="I/O Board(0x20) PIN5" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B6 label="I/O Board(0x20) PIN6" icon="lamp"
+        Switch item=MCP_VirtualSwitch_20_B7 label="I/O Board(0x20) PIN7" icon="lamp"
+
+        Switch item=MCP_VirtualSwitch_21_B0 label="I/O Board(0x21) PIN0" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B1 label="I/O Board(0x21) PIN1" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B2 label="I/O Board(0x21) PIN2" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B3 label="I/O Board(0x21) PIN3" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B4 label="I/O Board(0x21) PIN4" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B5 label="I/O Board(0x21) PIN5" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B6 label="I/O Board(0x21) PIN6" icon="lamp"
+        Switch item=MCP_VirtualSwitch_21_B7 label="I/O Board(0x21) PIN7" icon="lamp"
+        
         Group item=gFF label="First Floor" icon="firstfloor"
 		Group item=gGF label="Ground Floor" icon="groundfloor"
 		Group item=gC label="Cellar" icon="cellar"
 		Group item=Garden icon="garden"
+        Text item=temperature_mqtt label="MQTT Temperature"
 	}
 	Frame label="Weather" {
 		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="NULL"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {

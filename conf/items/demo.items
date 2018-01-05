@@ -20,10 +20,10 @@ Group SF_Bed        "Bedroom"       <bedroom>   (gSF)
 Group SF_Corridor   "Corridor"      <corridor>  (gSF)
 
 /* active groups */
-Group:Switch:OR(ON, OFF)        Lights       "All Lights [(%d)]"
-Group:Switch:OR(ON, OFF)        Heating      "No. of Active Heatings [(%d)]"     <heating>
-Group:Number:AVG                Temperature  "Avg. Room Temperature [%.1f °C]"   <temperature>   (Status)
-Group:Contact:OR(OPEN, CLOSED)  Windows      "Open windows [(%d)]"               <contact>
+Group:Switch:OR(ON, OFF)        Lights           "All Lights [(%d)]"
+Group:Switch:OR(ON, OFF)        Heating          "No. of Active Heatings [(%d)]"     <heating>
+Group:Number:AVG                AvgTemperature   "Avg. Room Temperature [%.1f °C]"   <temperature>   (Status)
+Group:Contact:OR(OPEN, CLOSED)  Windows          "Open windows [(%d)]"               <contact>
 
 Group:Switch:OR(OFF, ON)        gLights          "All Lights [(%d)]"
 Group:Switch:OR(OFF, ON)        v_gLights        "All Lights [(%d)]"
@@ -38,36 +38,42 @@ Switch Light_FF_Corridor_Wardrobe   "Wardrobe"   (FF_Corridor, Lights)
 Switch Light_FF_Toilet_Ceiling      "Ceiling"    (FF_Toilet,   Lights)
 Switch Light_FF_Toilet_Mirror       "Mirror"     (FF_Toilet,   Lights)
                                                  
+Switch Light_ALL_Turn_OFF         "ALL Light OFF"
 
-Switch MCP23017VirtualSwitchB0 "HALL Light 0" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB1 "HALL Light 1" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB2 "HALL Light 2" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB3 "HALL Light 3" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB4 "HALL Light 4" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB5 "HALL Light 5" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB6 "HALL Light 6" (FF_Corridor, gLights)
-Switch MCP23017VirtualSwitchB7 "HALL Light 7" (FF_Corridor, gLights)
+                                                 /*
+Switch MCP_VirtualSwitch_20_B0 "HALL Light 0" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B1 "HALL Light 1" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B2 "HALL Light 2" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B3 "HALL Light 3" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B4 "HALL Light 4" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B5 "HALL Light 5" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B6 "HALL Light 6" (FF_Corridor, gLights)
+Switch MCP_VirtualSwitch_20_B7 "HALL Light 7" (FF_Corridor, gLights)
 
-                                                 
+
                                                  
 // OLATA port address 0x14 -> 20 in Decimal, for some reason address 20 works for PORTA and PORTB
-Switch MCP23017ContactB0_LED "MCP_LED_A0" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A0', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB1_LED "MCP_LED_A1" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A1', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB2_LED "MCP_LED_A2" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A2', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB3_LED "MCP_LED_A3" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A3', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB4_LED "MCP_LED_A4" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A4', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB5_LED "MCP_LED_A5" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A5', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB6_LED "MCP_LED_A6" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A6', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
-Switch MCP23017ContactB7_LED "MCP_LED_A7" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A7', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A0 "MCP_SW_20_A0" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A0', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A1 "MCP_SW_20_A1" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A1', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A2 "MCP_SW_20_A2" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A2', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A3 "MCP_SW_20_A3" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A3', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A4 "MCP_SW_20_A4" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A4', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A5 "MCP_SW_20_A5" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A5', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A6 "MCP_SW_20_A6" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A6', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
+Switch MCP_Switch_20_A7 "MCP_SW_20_A7" (FF_Corridor, gLights) { mcp23017="{ address:20, pin:'A7', mode:'DIGITAL_OUTPUT', defaultState:'HIGH'}" }
 
-Contact MCP23017ContactB0 "MCP23017 Contact B0" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B0', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB1 "MCP23017 Contact B1" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B1', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB2 "MCP23017 Contact B2" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B2', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB3 "MCP23017 Contact B3" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B3', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB4 "MCP23017 Contact B4" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B4', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB5 "MCP23017 Contact B5" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B5', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB6 "MCP23017 Contact B6" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B6', mode:'DIGITAL_INPUT'}" }
-Contact MCP23017ContactB7 "MCP23017 Contact B7" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B7', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B0 "MCP_Cont_20_B0" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B0', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B1 "MCP_Cont_20_B1" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B1', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B2 "MCP_Cont_20_B2" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B2', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B3 "MCP_Cont_20_B3" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B3', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B4 "MCP_Cont_20_B4" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B4', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B5 "MCP_Cont_20_B5" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B5', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B6 "MCP_Cont_20_B6" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B6', mode:'DIGITAL_INPUT'}" }
+Contact MCP_Contact_20_B7 "MCP_Cont_20_B7" (FF_Corridor, gWallButtons) { mcp23017="{ address:20, pin:'B7', mode:'DIGITAL_INPUT'}" }
+*/
+
+//////////////////
+
 
 Switch Light_SF_Bath_Ceiling        "Ceiling"    (SF_Bath, 	   Lights)
 Switch Light_SF_Bath_Mirror         "Mirror"     (SF_Bath,     Lights)
@@ -138,10 +144,11 @@ Contact Window_FF_Office_Door   "Balcony Door [MAP(en.map):%s]"     (FF_Office, 
 Contact Garage_Door             "Garage Door [MAP(en.map):%s]"      (Garden, Windows)
 
 Group Weather_Chart
-Number Weather_Temperature      "Outside Temperature [%.1f °C]" <temperature> (Weather, Weather_Chart) { channel="yahooweather:weather:berlin:temperature" }
+/*Number Weather_Temperature      "Outside Temperature [%.1f °C]" <temperature> (Weather, Weather_Chart) { channel="yahooweather:weather:berlin:temperature" }
 Number Weather_Temp_Max         "Todays Maximum [%.1f °C]"      <temperature> (Weather, Weather_Chart)
 Number Weather_Temp_Min         "Todays Minimum [%.1f °C]"      <temperature> (Weather, Weather_Chart)
 Number Weather_Chart_Period     "Chart Period"
+*/
 DateTime Weather_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
 Number Sun_Elevation            "Sun Elevation"                 <sun>       { channel = "astro:sun:home:position#elevation" }
 Number Sun_Azimuth              "Sun Azimuth"                   <sun>       { channel = "astro:sun:home:position#azimuth" }
@@ -161,7 +168,7 @@ Dimmer DemoBlinds               "Blinds [%d %%]"        <rollershutter>
 Number Scene_General            "Scene"                 <sofa>
 Number Radio_Station            "Radio"                 <network>
 Dimmer Volume                   "Volume [%.1f %%]"
-Location DemoLocation           "Brandenburg Gate Berlin"
+Location DemoLocation           "Kyiv"
 Number Wifi_Level               "Wifi Level [%d/4]"     <signal>        (FF_Office)
 String ImageURL                 "Image URL [%s]"
 
@@ -169,6 +176,34 @@ Group Thermostat                "Thermostat"            <temperature>           
 Number Temperature_Setpoint     "Temperature [%.1f °C]" <temperature>    (Thermostat)    ["TargetTemperature"]
 String Thermostat_Mode          "Thermostat Mode [%s]"  <temperature>    (Thermostat)    ["homekit:HeatingCoolingMode"]
 
+/**Yahoo OH2 binding data/
+/*
+Number Weather_Temperature      "Temperature [%.2f °C]"     {channel="yahooweather:weather:kyiv:temperature", refresh="2"}
+Number Weather_Humidity         "Humidity [%d %%]"          {channel="yahooweather:weather:kyiv:humidity", refresh="2"}
+Number Weather_Pressure_Inches  "Pressure [%.2f mb]"        {channel="yahooweather:weather:kyiv:pressure", refresh="2"}
+Number Weather_Pressure_mmHg    "Pressure [%.2f in]"
+*/
 
+Number Temperature      "Temperature [%.2f °C]"     {weather="locationId=home, type=temperature, property=current"}
+Number Humidity         "Humidity [%d %%]"          {weather="locationId=home, type=atmosphere, property=humidity"}
+Number Pressure         "Pressure [%.2f mb]"        {weather="locationId=home, type=atmosphere, property=pressure, unit=inches"}
+Number Pressure_mmHg    "Pressure [%.2f in]"
+
+DateTime ObservationTime0 "Observation time [%1$td.%1$tm.%1$tY %1$tH:%1$tM]"  {weather="locationId=home, forecast=0, type=condition, property=observationTime"}
+DateTime ObservationTime1 "Observation time [%1$td.%1$tm.%1$tY %1$tH:%1$tM]"  {weather="locationId=home, forecast=1, type=condition, property=observationTime"}
+DateTime ObservationTime2 "Observation time [%1$td.%1$tm.%1$tY %1$tH:%1$tM]"  {weather="locationId=home, forecast=2, type=condition, property=observationTime"}
+
+Number                          Temp_Min0 "Temperature min [%.2f °C]"  {weather="locationId=home, forecast=0, type=temperature, property=min"}
+Number                          Temp_Max0 "Temperature max [%.2f °C]"  {weather="locationId=home, forecast=0, type=temperature, property=max"}
+Number                          Temp_Min1 "Temperature min [%.2f °C]"  {weather="locationId=home, forecast=1, type=temperature, property=min"}
+Number                          Temp_Max1 "Temperature max [%.2f °C]"  {weather="locationId=home, forecast=1, type=temperature, property=max"}
+Number                          Temp_Min2 "Temperature min [%.2f °C]"  {weather="locationId=home, forecast=2, type=temperature, property=min"}
+Number                          Temp_Max2 "Temperature max [%.2f °C]"  {weather="locationId=home, forecast=2, type=temperature, property=max"}
+
+String                          Condition0 "Condition [%s]"     {weather="locationId=home, forecast=0, type=condition, property=commonId"}
+String                          Condition1 "Condition [%s]"     {weather="locationId=home, forecast=1, type=condition, property=commonId"}
+String                          Condition2 "Condition [%s]"     {weather="locationId=home, forecast=2, type=condition, property=commonId"}
+
+Number temperature_mqtt "temp [%.1f]" {mqtt="<[MQTT:/esptemp/Temp/Temperature:state:default]"}
 
 // vim: syntax=Xtend
